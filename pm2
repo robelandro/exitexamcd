@@ -1,0 +1,33 @@
+# Install PM2 globally
+npm install pm2 -g
+
+# Navigate to your project directory
+cd path/to/your/project
+
+# Start the application with PM2
+pm2 start npm --name exit-exam-counter -- run bstart
+
+# Check the status of your application
+pm2 status
+
+# View the logs
+pm2 logs exit-exam-counter
+
+# Restart the application
+pm2 restart exit-exam-counter
+
+# Stop the application
+pm2 stop exit-exam-counter
+
+# Delete the application
+pm2 delete exit-exam-counter
+
+# Setup PM2 to start on system boot
+pm2 startup
+
+# Save the current process list
+pm2 save
+
+
+  git config --global user.email "robelpopandro@gmail.com"
+  git config --global user.name "robelandro"
