@@ -1,14 +1,14 @@
 import { TelegramClient } from "telegram";
 import { StringSession } from "telegram/sessions";
 import input from "input"; // npm i input
-
-const apiId = 123456;
-const apiHash = "123456abcdfg";
+import config from "./config";
+const apiId = config.api_id;
+const apiHash = config.api_hash;
 const stringSession = new StringSession(""); // fill this later with the value from session.save()
 
 (async () => {
   console.log("Loading interactive example...");
-  const client = new TelegramClient(stringSession, apiId, apiHash, {
+  const client = new TelegramClient(stringSession, apiId, apiHash as string, {
     connectionRetries: 5,
   });
   await client.start({
