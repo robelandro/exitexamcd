@@ -30,19 +30,14 @@ const client = new TelegramClient(stringSession, api_id, api_hash, {
       // Get the response from the AI
       const response = await generateAIMessage(question);
 
-      console.log(response);
-
       // Edit the loading message with the response
-      const result = await client.invoke(
+      await client.invoke(
         new Api.messages.EditMessage({
           peer: event.message.peerId,
           id: loadingMessage.id,
           message: response,
         })
       );
-
-      // Log the result
-      console.log(result);
     }
   }, new NewMessage({}));
 })();
