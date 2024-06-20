@@ -21,7 +21,7 @@ const client = new TelegramClient(stringSession, api_id, api_hash, {
   client.addEventHandler(async (event) => {
     const message = event.message;
     if (message.text.startsWith(".ask ")) {
-      const question = message.text.slice(3); // Adjusted slice index to 3 to match ".a "
+      const question = message.text.slice(5); // Adjusted slice index to 3 to match ".a "
       // Send a loading message
       const loadingMessage = await client.sendMessage(event.message.peerId, {
         message: "Loading...",
