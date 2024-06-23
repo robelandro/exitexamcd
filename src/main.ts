@@ -18,26 +18,78 @@ const client = new TelegramClient(stringSession, api_id, api_hash, {
 (async () => {
   await client.connect(); // Make sure to connect the client first
 
+  const updateLoadingMessage = async (
+    peerId: Api.TypePeer,
+    messageId: number,
+    counter: number
+  ) => {
+    const loadingText =
+      "█".repeat((counter % 3) + 1) + "▒".repeat(3 - ((counter % 3) + 1));
+    await client.invoke(
+      new Api.messages.EditMessage({
+        peer: peerId,
+        id: messageId,
+        message: loadingText,
+      })
+    );
+  };
+
   client.addEventHandler(async (event) => {
     const message = event.message;
     if (message.text.startsWith(".ask ")) {
-      const question = message.text.slice(5); // Adjusted slice index to 3 to match ".a "
+      const question = message.text.slice(5); // Adjusted slice index to 5 to match ".ask "
+
       // Send a loading message
-      const loadingMessage = await client.sendMessage(event.message.peerId, {
-        message: "Loading...",
+      let loadingMessage = await client.sendMessage(event.message.peerId, {
+        message: "█▒▒▒",
       });
 
-      // Get the response from the AI
-      const response = await generateAIMessage(question);
+      let counter = 0;
+      const loadingInterval = setInterval(async () => {
+        counter++;
+        await updateLoadingMessage(
+          event.message.peerId,
+          loadingMessage.id,
+          counter
+        );
+      }, 1000); // Update every second
 
-      // Edit the loading message with the response
-      await client.invoke(
-        new Api.messages.EditMessage({
-          peer: event.message.peerId,
-          id: loadingMessage.id,
+      try {
+        // Get the response from the AI
+        const response = await generateAIMessage(question);
+
+        // Clear the loading interval
+        clearInterval(loadingInterval);
+
+        // Delete the loading message
+        await client.invoke(
+          new Api.messages.DeleteMessages({
+            id: [loadingMessage.id],
+            revoke: true,
+          })
+        );
+
+        // Send the response
+        await client.sendMessage(event.message.peerId, {
           message: response,
-        })
-      );
+        });
+      } catch (error) {
+        // Clear the loading interval in case of error
+        clearInterval(loadingInterval);
+
+        // Delete the loading message
+        await client.invoke(
+          new Api.messages.DeleteMessages({
+            id: [loadingMessage.id],
+            revoke: true,
+          })
+        );
+
+        // Send an error message
+        await client.sendMessage(event.message.peerId, {
+          message: "An error occurred while processing your request.",
+        });
+      }
     }
   }, new NewMessage({}));
 })();
