@@ -1,6 +1,6 @@
-# Exit Exam Counter
+# Telegram Userbot AI Agent
 
-Welcome to the Exit Exam Counter project! This is a fun and educational project designed to help students keep track of the remaining time until their exit exams. The project leverages the Gemini API AI for generating fun and engaging messages and uses the Telegram User API Wrapper `grams.js` to send these messages to a Telegram group.
+Welcome to the Telegram Userbot AI Agent project! This project was initially designed to count down the hours until exit exams and send fun messages every hour to a Telegram group. However, based on user feedback, it has been transformed into a personal AI agent bot powered by Gemini API. The bot now answers questions and fixes grammar through specific commands.
 
 ## Table of Contents
 
@@ -14,13 +14,14 @@ Welcome to the Exit Exam Counter project! This is a fun and educational project 
 
 ## Introduction
 
-The Exit Exam Counter is a chatbot that helps students keep track of the remaining time until their exit exams. It uses the Gemini API AI to generate fun and engaging countdown messages. By integrating with Telegram through the `grams.js` library, this project provides a simple and interactive way to receive updates in a Telegram group.
+The Telegram Userbot AI Agent is a chatbot that uses the Gemini API AI to provide answers to questions and fix grammatical errors. By integrating with Telegram through the `grams.js` library, this project offers a simple and interactive way to engage with an AI assistant directly in your chat.
 
 ## Features
 
-- **Countdown Messages**: Receive fun and engaging messages about the remaining time until your exams.
-- **Group Notifications**: Get notified in a Telegram group, keeping all members informed.
-- **AI-Generated Text**: Enjoy creative and entertaining messages powered by Gemini API AI.
+- **AI-Powered Responses**: Ask any question using the `.ask` command and get answers from the AI.
+- **Grammar Correction**: Improve your text by using the `.gr` command for grammar fixes.
+- **Group Notifications**: Originally designed to send periodic messages to a group, this feature is still available but optional.
+- **Customizable**: Adjust settings such as reminder intervals and message formats through configuration.
 
 ## Setup and Installation
 
@@ -35,8 +36,8 @@ The Exit Exam Counter is a chatbot that helps students keep track of the remaini
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/robelandro/exitexamcd.git
-    cd exitexamcd
+    git clone https://github.com/robelandro/telegram-userbot-ai-agent.git
+    cd telegram-userbot-ai-agent
     ```
 
 2. **Install Dependencies**:
@@ -47,8 +48,11 @@ The Exit Exam Counter is a chatbot that helps students keep track of the remaini
 3. **Configure Environment Variables**:
     Create a `.env` file in the root directory and add the following variables:
     ```plaintext
-    TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+    API_ID=13392332
+    API_HASH=f6fb720e3f470b30a73560381b24b1cc
+    STRING_SESSION=""
     GEMINI_API_KEY=your_gemini_api_key
+    GEMINI_API_URL=https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent
     ```
 
 4. **Run the Application**:
@@ -58,7 +62,20 @@ The Exit Exam Counter is a chatbot that helps students keep track of the remaini
 
 ## Usage
 
-Once the bot is running, it will automatically send countdown messages to the specified Telegram group. You can configure the schedule and message content as needed. 
+Once the bot is running, you can interact with it by typing commands in your Telegram chat. 
+
+### Commands
+
+- **Ask a Question**: 
+    ```plaintext
+    .ask <your question>
+    ```
+- **Fix Grammar**: 
+    ```plaintext
+    .gr <text to be fixed>
+    ```
+
+For sending periodic messages related to exit exams, the code is still available. You can find it [here](https://github.com/robelandro/telegram-userbot-ai-agent/blob/main/src/utils/msg_schedule.ts).
 
 ## Configuration
 
@@ -80,4 +97,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-Feel free to reach out if you have any questions or need further assistance. Enjoy the countdown to your exams and good luck!
+Feel free to reach out if you have any questions or need further assistance. Enjoy interacting with your AI agent and make the most of its capabilities!
