@@ -12,7 +12,7 @@ export const grammar = async (event: NewMessageEvent) => {
 
     const loadingInterval = setInterval(async () => {
       gibberishLoadingMessage(event.message.peerId, event.message.id, client);
-    }, 400); // Update every second
+    }, 1000); // Update every second
 
     try {
       const tuned_question = `Please only send the grammatically correct version of "${question}"`;
