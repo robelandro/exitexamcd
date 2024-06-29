@@ -74,7 +74,11 @@ export const moeresult = async (event: NewMessageEvent) => {
       await client.sendFile(event.message.peerId, {
         file: filepath,
         caption: `Downloaded ${id}.pdf`,
+		replyTo: event.message.id
       });
+	  
+	  // delete file
+	  await fs.unlink(filepath);
 
     } catch (error) {
       clearInterval(loadingInterval);
