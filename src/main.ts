@@ -4,6 +4,7 @@ import config from "./config";
 import { NewMessage } from "telegram/events";
 import { ask } from "./services/ask";
 import { grammar } from "./services/grammar";
+import { moeresult } from "./services/moeresult";
 
 const { api_id, api_hash } = config;
 
@@ -22,4 +23,5 @@ const client = new TelegramClient(stringSession, api_id, api_hash, {
   // .ask ai message
   client.addEventHandler(ask, new NewMessage({}));
   client.addEventHandler(grammar, new NewMessage({}));
+  client.addEventHandler(moeresult, new NewMessage({}));
 })();
